@@ -1,0 +1,35 @@
+name: jeet_ke_jeo
+description: A lottery App
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.1.0 <4.0.0'
+dependencies:
+  flutter:
+    sdk: flutter
+  accordion: ^2.6.0
+  convex_bottom_bar: ^3.2.0
+  firebase_auth: ^4.10.0
+  firebase_core: ^2.16.0
+  cloud_firestore: ^4.9.2
+  firebase_database: ^10.2.6
+  flutter_launcher_icons: ^0.12.0
+  flutter_native_splash: ^2.2.19
+  flutter_svg: ^2.0.7
+  google_fonts: ^6.1.0
+  intl_phone_number_input: ^0.7.3+1
+  velocity_x: ^4.1.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/images/card/
+    - assets/images/prizes/

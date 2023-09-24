@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "491993932940",
+    "project_id": "jeetkjeo-a23d3",
+    "storage_bucket": "jeetkjeo-a23d3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:491993932940:android:e7977f9f303a6b85a107a9",
+        "android_client_info": {
+          "package_name": "com.codeneur.jeet_ke_jeo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCU_szgIWYjHGBd8c3JLZ15fGEpNg8NXkc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
