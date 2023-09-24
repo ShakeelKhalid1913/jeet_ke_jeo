@@ -11,16 +11,16 @@ class FirebaseUserCollection {
   }
 
   void addUser(Map<String, dynamic> data) async {
+    if(!(await isUserExists(data['uid']))) {
+      await usersCollection.doc(data['uid']).set(data);
+      return;
+    }
+
     final userDoc = usersCollection.doc(data['uid']);
+
     var items = await userDoc
         .get()
         .then((snapshot) => snapshot.get('lotteryPurchased'));
-
-    if (items == null) {
-      items = [];
-
-      await userDoc.update({'lotteryPurchased': items});
-    }
 
     items.add(data['lotteryPurchased'][0]);
     items = items.toSet().toList();
@@ -29,13 +29,16 @@ class FirebaseUserCollection {
     await userDoc.set(data);
   }
 
-  Future<bool> isUserExist(String uid) async{
+  Future<bool> isUserExists(String uid) async {
     DocumentSnapshot documentSnapshot = await usersCollection.doc(uid).get();
     return documentSnapshot.exists;
   }
 
-  Future<UserModel> getUser(String uid) async {
+  Future<UserModel?> getUser(String uid) async {
     DocumentSnapshot documentSnapshot = await usersCollection.doc(uid).get();
+    if (!documentSnapshot.exists) {
+      return null;
+    }
     return UserModel.fromJson(documentSnapshot.data() as Map<String, dynamic>);
   }
 }

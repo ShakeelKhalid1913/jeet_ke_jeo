@@ -12,6 +12,13 @@ class PinField extends StatefulWidget {
 
 class PinFieldState extends State<PinField> {
   TextEditingController controller = TextEditingController();
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextField(

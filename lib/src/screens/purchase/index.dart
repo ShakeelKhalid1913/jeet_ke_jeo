@@ -37,13 +37,11 @@ class _PurchaseLotteryState extends State<PurchaseLottery> {
     Future<User?> user = _auth.getCurrentUser();
     user.then((value) {
       uid = value!.uid;
-      _collection.isUserExist(uid).then((isExist) {
-        if (isExist) {
-          _collection.getUser(uid).then((value) {
-            _usernameController.text = value.username;
-            _addressController.text = value.address;
-            _phoneController.text = value.phone;
-          });
+      _collection.getUser(uid).then((value) {
+        if (value != null) {
+          _usernameController.text = value.username;
+          _addressController.text = value.address;
+          _phoneController.text = value.phone;
         }
       });
     });
@@ -53,6 +51,14 @@ class _PurchaseLotteryState extends State<PurchaseLottery> {
     });
 
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _addressController.dispose();
+    _phoneController.dispose();
+    super.dispose();
   }
 
   void saveUserInformation() async {
@@ -93,8 +99,8 @@ class _PurchaseLotteryState extends State<PurchaseLottery> {
             opacity: _loaded ? 1 : 0,
             child: const Center(
                 child: CircularProgressIndicator(
-                  color: AppColors.blackColor,
-                )))
+              color: AppColors.blackColor,
+            )))
       ].stack(),
     );
   }
@@ -118,10 +124,10 @@ class _PurchaseLotteryState extends State<PurchaseLottery> {
           .white
           .xl6
           .textStyle(GoogleFonts.shadowsIntoLight(
-        textStyle: const TextStyle(
-          fontWeight: FontWeight.bold,
-        ),
-      ))
+            textStyle: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ))
           .make()
           .box
           .alignCenterLeft
@@ -174,7 +180,7 @@ class _PurchaseLotteryState extends State<PurchaseLottery> {
         textFieldController: _phoneController,
         formatInput: true,
         keyboardType:
-        const TextInputType.numberWithOptions(signed: true, decimal: true),
+            const TextInputType.numberWithOptions(signed: true, decimal: true),
         inputBorder: const OutlineInputBorder(),
         onSaved: (PhoneNumber number) {
           print('On Saved: $number');
@@ -183,9 +189,10 @@ class _PurchaseLotteryState extends State<PurchaseLottery> {
       const SizedBox(height: 20),
       ElevatedButton(
         onPressed: saveUserInformation,
-        child: ["Purchase".text.xl4.make(), const Icon(Icons.arrow_forward),]
-            .row(alignment: MainAxisAlignment.center)
-            .wFull(context),
+        child: [
+          "Purchase".text.xl4.make(),
+          const Icon(Icons.arrow_forward),
+        ].row(alignment: MainAxisAlignment.center).wFull(context),
       )
     ]
         .column()
@@ -193,18 +200,18 @@ class _PurchaseLotteryState extends State<PurchaseLottery> {
         .hFull(context)
         .box
         .withDecoration(
-      const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topRight,
-          end: Alignment.bottomLeft,
-          stops: [0.1, 0.9],
-          colors: [
-            Colors.black,
-            AppColors.goldColor,
-          ],
-        ),
-      ),
-    )
+          const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              stops: [0.1, 0.9],
+              colors: [
+                Colors.black,
+                AppColors.goldColor,
+              ],
+            ),
+          ),
+        )
         .padding(const EdgeInsets.fromLTRB(20, 20, 20, 0))
         .color(Colors.black87)
         .make();
