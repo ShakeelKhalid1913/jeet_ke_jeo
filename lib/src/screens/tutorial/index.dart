@@ -20,7 +20,7 @@ class _PlayTutorialScreenState extends State<PlayTutorialScreen> {
       ),
       const CustomCard(
         num: 2,
-        imageUrl: "assets/images/card/buy.svg",
+        imageUrl: "assets/images/card/play.svg",
         desc: "Click the lottery numbers you would like to play.",
       ),
       const CustomCard(
@@ -30,18 +30,18 @@ class _PlayTutorialScreenState extends State<PlayTutorialScreen> {
       ),
       const CustomCard(
         num: 4,
-        imageUrl: "assets/images/card/buy.svg",
-        desc: "Click on Play Button.",
+        imageUrl: "assets/images/card/form.svg",
+        desc: "Fill the Details with address and phone number.",
       ),
       const CustomCard(
         num: 5,
-        imageUrl: "assets/images/card/buy.svg",
-        desc: "Click on Play Button.",
+        imageUrl: "assets/images/card/pay.svg",
+        desc: "Purchase the lottery",
       ),
       const CustomCard(
         num: 6,
-        imageUrl: "assets/images/card/buy.svg",
-        desc: "Click on Play Button.",
+        imageUrl: "assets/images/card/prize.svg",
+        desc: "Wait for the results to be announced.",
       ),
     ].column().p16();
   }

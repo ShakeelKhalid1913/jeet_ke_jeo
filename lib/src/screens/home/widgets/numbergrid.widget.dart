@@ -14,14 +14,15 @@ class NumberGrid extends StatefulWidget {
 
 class NumberGridState extends State<NumberGrid> {
   final List<bool> isSelected = List.generate(49, (index) => false);
-  int numberNotSelected = 6;
+  int numberSelected = 0;
 
   TextEditingController getNextFieldController() {
-    int val = numberNotSelected;
+    int val = numberSelected;
     setState(() {
-      numberNotSelected--;
+      numberSelected++;
     });
-    return globals.keys[6 - val].currentState!.controller;
+    return globals.keys[val]
+        .currentState!.controller;
   }
 
   List<Widget> pinFields = [
@@ -39,7 +40,7 @@ class NumberGridState extends State<NumberGrid> {
         isSelected[i] = false;
       }
 
-      numberNotSelected = 6;
+      numberSelected = 0;
       for (int i = 0; i < 6; i++) {
         globals.keys[i].currentState!.controller.clear();
       }
@@ -64,13 +65,17 @@ class NumberGridState extends State<NumberGrid> {
         isSelected[randomNumbers[i] - 1] = true;
       });
     }
+
+    setState(() {
+      numberSelected = 6;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return [
       [
-        "Pick $numberNotSelected Numbers".text.bold.make(),
+        "Pick ${6 - numberSelected} Numbers".text.bold.make(),
         const Spacer(),
         pinFields[0].expand(),
         pinFields[1].expand(),
@@ -103,7 +108,7 @@ class NumberGridState extends State<NumberGrid> {
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
                   onTap: () {
-                    if (numberNotSelected == 0) {
+                    if (numberSelected == 6) {
                       return;
                     }
                     if (isSelected[index] == true) {

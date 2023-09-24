@@ -3,7 +3,7 @@ class UserModel {
   final String username;
   final String address;
   final String phone;
-  final List<String> lotteryPurchased;
+  final List<dynamic> lotteryPurchased;
 
   UserModel(
       {required this.uid,
@@ -11,6 +11,13 @@ class UserModel {
       required this.address,
       required this.phone,
       required this.lotteryPurchased});
+
+  UserModel.fromUserModel(UserModel userModel)
+      : uid = userModel.uid,
+        username = userModel.username,
+        address = userModel.address,
+        phone = userModel.phone,
+        lotteryPurchased = [];
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
@@ -28,4 +35,9 @@ class UserModel {
         'phone': phone,
         'lotteryPurchased': lotteryPurchased,
       };
+
+  @override
+  String toString() {
+    return 'UserModel(uid: $uid, username: $username, address: $address, phone: $phone, lotteryPurchased: $lotteryPurchased)';
+  }
 }
