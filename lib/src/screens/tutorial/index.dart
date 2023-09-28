@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:jeet_ke_jeo/src/screens/tutorial/widgets/customcard.widget.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -13,35 +14,35 @@ class _PlayTutorialScreenState extends State<PlayTutorialScreen> {
   @override
   Widget build(BuildContext context) {
     return [
-      const CustomCard(
+      CustomCard(
         num: 1,
         imageUrl: "assets/images/card/login.svg",
-        desc: "Create an account or log in to your existing account.",
+        desc: "card-1".tr,
       ),
-      const CustomCard(
+      CustomCard(
         num: 2,
         imageUrl: "assets/images/card/play.svg",
-        desc: "Click the lottery numbers you would like to play.",
+        desc: "card-2".tr,
       ),
-      const CustomCard(
+      CustomCard(
         num: 3,
         imageUrl: "assets/images/card/buy.svg",
-        desc: "Click on Play Button.",
+        desc: "card-3".tr,
       ),
-      const CustomCard(
+      CustomCard(
         num: 4,
         imageUrl: "assets/images/card/form.svg",
-        desc: "Fill the Details with address and phone number.",
+        desc: "card-4".tr,
       ),
-      const CustomCard(
+      CustomCard(
         num: 5,
         imageUrl: "assets/images/card/pay.svg",
-        desc: "Purchase the lottery",
+        desc: "card-5".tr,
       ),
-      const CustomCard(
+      CustomCard(
         num: 6,
         imageUrl: "assets/images/card/prize.svg",
-        desc: "Wait for the results to be announced.",
+        desc: "card-6".tr,
       ),
     ].column().p16();
   }

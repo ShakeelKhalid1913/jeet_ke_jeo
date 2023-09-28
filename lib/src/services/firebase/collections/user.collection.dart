@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:jeet_ke_jeo/src/models/lottery.model.dart';
 import 'package:jeet_ke_jeo/src/models/user.model.dart';
 
 class FirebaseUserCollection {
@@ -11,9 +12,14 @@ class FirebaseUserCollection {
   }
 
   void addUser(Map<String, dynamic> data) async {
-    if(!(await isUserExists(data['uid']))) {
-      await usersCollection.doc(data['uid']).set(data);
-      return;
+    if (!(await isUserExists(data['uid']))) {
+      await usersCollection.doc(data['uid']).set({
+        'uid': data['uid'],
+        'username': data['username'],
+        'address': data['address'],
+        'phone': data['phone'],
+        'lotteryPurchased': [],
+      });
     }
 
     final userDoc = usersCollection.doc(data['uid']);
@@ -22,8 +28,7 @@ class FirebaseUserCollection {
         .get()
         .then((snapshot) => snapshot.get('lotteryPurchased'));
 
-    items.add(data['lotteryPurchased'][0]);
-    items = items.toSet().toList();
+    items.add(data['lotteryPurchased'][0].toJson());
     data['lotteryPurchased'] = [...items];
 
     await userDoc.set(data);
@@ -39,6 +44,22 @@ class FirebaseUserCollection {
     if (!documentSnapshot.exists) {
       return null;
     }
-    return UserModel.fromJson(documentSnapshot.data() as Map<String, dynamic>);
+    //get lottery purchased from data
+    List<Lottery> lotteryPurchased = [];
+    List<dynamic> lotteryPurchasedData =
+        documentSnapshot.get('lotteryPurchased');
+    for (var element in lotteryPurchasedData) {
+      lotteryPurchased.add(Lottery.fromJson(element));
+    }
+    //add lottery purchased to data
+    Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
+    data['lotteryPurchased'] = lotteryPurchased;
+
+    return UserModel.fromJson(data);
+  }
+
+  Future<int> getNumberOfUsers() async {
+    AggregateQuerySnapshot query = await usersCollection.count().get();
+    return query.count;
   }
 }

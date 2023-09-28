@@ -1,9 +1,11 @@
+import 'package:jeet_ke_jeo/src/models/lottery.model.dart';
+
 class UserModel {
   final String uid;
   final String username;
   final String address;
   final String phone;
-  final List<dynamic> lotteryPurchased;
+  final List<Lottery> lotteryPurchased;
 
   UserModel(
       {required this.uid,

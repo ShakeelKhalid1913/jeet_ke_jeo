@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:jeet_ke_jeo/src/config/constants/colors.dart';
 import 'package:jeet_ke_jeo/src/screens/home/widgets/numbergrid.widget.dart';
+import 'package:jeet_ke_jeo/src/services/firebase/collections/user.collection.dart';
+import 'package:jeet_ke_jeo/src/widgets/background.dart';
 import 'package:jeet_ke_jeo/src/widgets/dialogbox.widgets.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:jeet_ke_jeo/src/config/globals/index.dart' as globals;
@@ -12,6 +16,19 @@ class Lottery extends StatefulWidget {
 }
 
 class _LotteryState extends State<Lottery> {
+  final FirebaseUserCollection _userCollection = FirebaseUserCollection();
+  int numberOfUsers = 0;
+
+  @override
+  void initState() {
+    _userCollection.getNumberOfUsers().then((value) {
+      setState(() {
+        numberOfUsers = value;
+      });
+    });
+    super.initState();
+  }
+
   final List<Widget> _children = [
     [
       Image.asset(
@@ -45,7 +62,19 @@ class _LotteryState extends State<Lottery> {
 
   @override
   Widget build(BuildContext context) {
+    return [BackGround(body: _body)].column();
+  }
+
+  Widget _body() {
     return [
+      "Current number of Users $numberOfUsers"
+          .text
+          .xl2
+          .makeCentered()
+          .box
+          .roundedLg
+          .white
+          .make(),
       _children
           .map((e) => e)
           .toList()
@@ -74,7 +103,7 @@ class _LotteryState extends State<Lottery> {
           Navigator.pushNamed(context, "/purchase",
               arguments: {"lotteryNumber": text});
         },
-        child: "Play".text.xl4.make(),
+        child: "play".tr.text.xl4.make(),
       ).wFull(context).h(50).p16(),
     ].column().p16();
   }

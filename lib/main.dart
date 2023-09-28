@@ -1,13 +1,10 @@
+import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:jeet_ke_jeo/firebase_options.dart';
-import 'package:jeet_ke_jeo/splash.dart';
 import 'package:jeet_ke_jeo/src/config/constants/theme.dart';
-import 'package:jeet_ke_jeo/src/screens/auth/login/index.dart';
-import 'package:jeet_ke_jeo/src/screens/auth/signup/index.dart';
-import 'package:jeet_ke_jeo/src/screens/home/index.dart';
-import 'package:jeet_ke_jeo/src/screens/purchase/index.dart';
 import 'package:jeet_ke_jeo/src/utils/routes.dart';
+import 'package:jeet_ke_jeo/src/utils/translations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +20,9 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
+      translations: AppTranslation(),
+      locale: const Locale('en', 'US'),
       title: 'Jeet Ke Jeo',
       debugShowCheckedModeBanner: false,
       theme: Themes.theme(context),
